@@ -1,7 +1,7 @@
-// Dedicated generator for authentic Classical Latin (Lorem Ipsum) and Realistic Pseudo-Dutch
-// Featuring non-existing, phonotactically authentic Dutch-looking nonsense words and bullet lists
+// Dedicated generator for authentic Classical Latin (Lorem Ipsum), Realistic Pseudo-Dutch, and Klingon (tlhIngan Hol)
+// Featuring non-existing Dutch neologisms, authentic Klingon warrior grammar, and bullet lists
 
-export type LanguageMode = 'latin' | 'dutch';
+export type LanguageMode = 'latin' | 'dutch' | 'klingon';
 export type ParagraphLength = 'short' | 'medium' | 'long';
 export type OutputFormat = 'plain' | 'html' | 'markdown' | 'json';
 
@@ -201,6 +201,97 @@ const ADJ_SUFFIXES = [
   'ig', 'erig', 'achtig', 'baar', 'end', 'zaam', 'eloos', 'lijk', 'erlijk'
 ];
 
+// --- Klingon (tlhIngan Hol) Vocabulary & Phrases ---
+
+const KLINGON_NOUNS = [
+  'SuvwI\'', 'batlh', 'Duj', 'wo\'', 'jagh', 'may\'', 'HIq', 'targh', 'loD', 'be\'',
+  'puq', 'juH', 'qo\'', 'chabal', 'lojmIt', 'nav', 'De\'wI\'', 'chIch', 'betleH', 'yIH',
+  'ghe\'\'or', 'pIn\'a\'', 'ra\'ghom', 'roD', 'tach', 'tlhup', 'yaS', 'yoH', 'yuv', 'Qo\'noS',
+  'quv', 'chut', 'pIch', 'sub', 'meq', 'Hegh', 'nger', 'vum', 'legh', 'ghoj',
+  'tIgh', 'Ha\'DIbaH', 'cha\'', 'wey', 'yoD', 'ghom', 'ghob', 'bortaS', 'quv'
+];
+
+const KLINGON_VERBS = [
+  'Qap', 'Hegh', 'taH', 'HoH', 'Sop', 'tlhutlh', 'ghoj', 'vum', 'legh', 'voq',
+  'ghoH', 'jegh', 'poSmoH', 'Qaw\'', 'tu\'', 'baH', 'yIn', 'choQ', 'ja\'', 'jach',
+  'jot', 'law\'', 'puS', 'ngoq', 'rotlh', 'val', 'yoH', 'yuv', 'nob', 'Doq',
+  'lo\'', 'wov', 'Hurgh'
+];
+
+const KLINGON_ADJECTIVES = [
+  'QaQ', 'bIr', 'qan', 'matlh', 'yoH', 'puj', 'tuj', 'chu\'', 'Doj', 'nIb',
+  'Dun', 'tlhIb', 'val', 'sub', 'rotlh', 'meQ', 'Doy\'', 'quv', 'jegh'
+];
+
+const KLINGON_PROVERBS = [
+  'batlh potlh law\' yIn potlh puS.',
+  'Heghlu\'meH QaQ jajvam.',
+  'bortaS bIr jablu\'DI\' reH QaQqu\' nay\'.',
+  'tlhIngan wo\' rInbe\' reH taH.',
+  'SuvwI\' qan tu\'lu\'be\'.',
+  'Duj tIvoqtaH, \'ach Dujraj yIghoH.',
+  'qo\'mey poSmoH Hol.',
+  'bIjeghbe\'chugh vaj bIHegh.',
+  'Ha\'DIbaH DaSopchugh, Ha\'DIbaH yISop.',
+  'matlh \'ej yoH Hoch SuvwI\'.',
+  'qeylIS betleH rur batlh \'ej quv.',
+  'chaq wa\' jaj Hoch jaghmey DIQaw\'.',
+  'De\'wI\' tIgh tlhInganpu\' ghojmeH taH.',
+  'HIq tlhutlh SuvwI\'pu\', \'ach may\' lu\'ang.',
+  'reH tagh may\' \'ej Hegh jagh.',
+  'quvmey potlh law\' yInmey potlh puS.',
+  'toH, bortaS yIcher \'ej SuvtaH!'
+];
+
+const KLINGON_LIST_INTROS = [
+  'tlhIngan chut \'ej potlhqu\'bogh nger:',
+  'bortaS \'ej batlh potlh law\' Hoch:',
+  'SuvwI\'pu\' ra\'ghom nger vIlab:',
+  'pIn\'a\'mey \'ej chabalmey vIto\':',
+  'may\'mey \'ej batlh chabalmey vIcha\':',
+  'Hoch SuvwI\'pu\'vaD ra\'lu\'bogh chut:'
+];
+
+const KLINGON_LIST_ITEMS = [
+  'batlh potlh law\' yIn potlh puS',
+  'Heghlu\'meH QaQ jajvam \'ej Qapla\'',
+  'bortaS bIr jablu\'DI\' reH QaQqu\' nay\'',
+  'tlhIngan wo\' rInbe\' reH taH',
+  'SuvwI\' qan tu\'lu\'be\' \'ej yoH Hoch',
+  'qeylIS betleH rur batlh \'ej quv',
+  'bIjeghbe\'chugh vaj bIHeghqu\'',
+  'qo\'mey poSmoH Hol \'ej De\'wI\'',
+  'Duj tIvoqtaH \'ach jagh yIHoH',
+  'HIq tlhutlh SuvwI\' \'ej taH',
+  'Ha\'DIbaH DaSopchugh, Ha\'DIbaH yISop',
+  'matlh \'ej yoH Hoch SuvwI\'pu\'',
+  'chaq wa\' jaj Hoch jaghmey DIQaw\'',
+  'toH, bortaS yIcher \'ej SuvtaH'
+];
+
+const KLINGON_TEMPLATES = [
+  'HoHlu\'meH {noun1} vIlegh, \'ach {noun2} vIvoqtaH.',
+  'batlh {verb1}taHvIS {noun1}, {verb2}qu\' {noun2}.',
+  'chaq {noun1} lu{verb1}chugh, vaj {noun2} wI{verb2}pu\'.',
+  'reH {noun1} potlh law\' {noun2} potlh puS.',
+  'nuqDaq \'oH {noun1}\'e\' \'ej chay\' {noun2} {verb1}?',
+  'bI{verb1}be\'chugh vaj {noun1} Da{verb2}laHbe\'.',
+  '{noun1} qan tu\'lu\'be\' \'ej reH taH {noun2}.',
+  'matlh {noun1} \'ej yoH {noun2}, vaj Qapla\' wIHev.',
+  '{noun1}vam lu{verb1}taH Hoch SuvwI\'pu\'.',
+  'bortaS {adj1} jablu\'DI\' reH {verb1}qu\' {noun1}.',
+  'petaQ! {noun1} luHoHlu\' \'ej batlh {noun2} wIHev.',
+  'qo\'mey poSmoH {noun1}, \'ach {noun2} wIQaw\'chu\'.'
+];
+
+function getRandomItem<T>(arr: readonly T[]): T {
+  return arr[Math.floor(Math.random() * arr.length)];
+}
+
+function getRandomInt(min: number, max: number): number {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
 function generateDynamicPseudoNoun(): string {
   const prefix = Math.random() > 0.6 ? getRandomItem(['ver', 'be', 'ont', 'her', 'ge', 'aan', 'af']) : '';
   const stem = getRandomItem(STEMS);
@@ -212,14 +303,6 @@ function generateDynamicPseudoAdj(): string {
   const stem = getRandomItem(STEMS);
   const suffix = getRandomItem(ADJ_SUFFIXES);
   return `${stem}${suffix}`;
-}
-
-function getRandomItem<T>(arr: readonly T[]): T {
-  return arr[Math.floor(Math.random() * arr.length)];
-}
-
-function getRandomInt(min: number, max: number): number {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 function generateLatinSentence(): string {
@@ -303,6 +386,33 @@ function generatePseudoDutchSentence(): string {
   return getRandomItem(sentenceTypes)();
 }
 
+function generateKlingonSentence(): string {
+  // 45% use authentic canonical proverbs
+  if (Math.random() < 0.45) {
+    return getRandomItem(KLINGON_PROVERBS);
+  }
+
+  // 55% use dynamic Klingon warrior template
+  const template = getRandomItem(KLINGON_TEMPLATES);
+  return template
+    .replace('{noun1}', getRandomItem(KLINGON_NOUNS))
+    .replace('{noun2}', getRandomItem(KLINGON_NOUNS))
+    .replace('{verb1}', getRandomItem(KLINGON_VERBS))
+    .replace('{verb2}', getRandomItem(KLINGON_VERBS))
+    .replace('{adj1}', getRandomItem(KLINGON_ADJECTIVES));
+}
+
+function generateSentenceForMode(mode: LanguageMode): string {
+  switch (mode) {
+    case 'latin':
+      return Math.random() < 0.25 ? getRandomItem(LATIN_OPENERS) : generateLatinSentence();
+    case 'dutch':
+      return generatePseudoDutchSentence();
+    case 'klingon':
+      return generateKlingonSentence();
+  }
+}
+
 function getSentenceCountForLength(length: ParagraphLength): number {
   switch (length) {
     case 'short':
@@ -331,11 +441,8 @@ export function generateText(options: GeneratorOptions): ParagraphItem[] {
     if (count === 1) {
       listIndices.add(0);
     } else {
-      // Pick random indices, ensuring at least one paragraph gets a list
       const candidateIndices = Array.from({ length: count }, (_, i) => i);
-      // If count > 1, prefer giving list to non-zero paragraphs unless count == 2
       const pool = count > 1 ? candidateIndices.slice(1) : candidateIndices;
-      // Shuffle pool
       for (let i = pool.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [pool[i], pool[j]] = [pool[j], pool[i]];
@@ -358,24 +465,37 @@ export function generateText(options: GeneratorOptions): ParagraphItem[] {
 
       for (let s = 0; s < sentencesCount; s++) {
         if (p === 0 && s === 0 && startWithLorem) {
-          introSentences.push(
-            mode === 'latin'
-              ? 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.'
-              : 'Knoestering ipsum dolor sit amet, klossemachtige zwalkers en vlierende dreumelarij ter opvulling van de plonstermacht.'
-          );
+          if (mode === 'latin') {
+            introSentences.push('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.');
+          } else if (mode === 'dutch') {
+            introSentences.push('Knoestering ipsum dolor sit amet, klossemachtige zwalkers en vlierende dreumelarij ter opvulling van de plonstermacht.');
+          } else {
+            introSentences.push('Qapla\' ipsum dolor sit amet, batlh potlh law\' yIn potlh puS, Heghlu\'meH QaQ jajvam.');
+          }
         } else {
-          introSentences.push(mode === 'latin' ? generateLatinSentence() : generatePseudoDutchSentence());
+          introSentences.push(generateSentenceForMode(mode));
         }
       }
 
       // Add the list intro
-      const listIntro = mode === 'latin' ? getRandomItem(LATIN_LIST_INTROS) : getRandomItem(PSEUDO_DUTCH_LIST_INTROS);
+      let listIntro: string;
+      let itemPool: string[];
+      if (mode === 'latin') {
+        listIntro = getRandomItem(LATIN_LIST_INTROS);
+        itemPool = [...LATIN_LIST_ITEMS];
+      } else if (mode === 'dutch') {
+        listIntro = getRandomItem(PSEUDO_DUTCH_LIST_INTROS);
+        itemPool = [...PSEUDO_DUTCH_LIST_ITEMS];
+      } else {
+        listIntro = getRandomItem(KLINGON_LIST_INTROS);
+        itemPool = [...KLINGON_LIST_ITEMS];
+      }
+
       introSentences.push(listIntro);
       const leadText = introSentences.join(' ');
 
       // Pick 3 to 5 bullet items
       const itemCount = getRandomInt(3, 5);
-      const itemPool = mode === 'latin' ? [...LATIN_LIST_ITEMS] : [...PSEUDO_DUTCH_LIST_ITEMS];
       for (let i = itemPool.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [itemPool[i], itemPool[j]] = [itemPool[j], itemPool[i]];
@@ -385,7 +505,7 @@ export function generateText(options: GeneratorOptions): ParagraphItem[] {
       // Optional follow up sentence (70% probability if length is medium or long)
       let followUpText: string | undefined = undefined;
       if (length !== 'short' && Math.random() < 0.75) {
-        followUpText = mode === 'latin' ? generateLatinSentence() : generatePseudoDutchSentence();
+        followUpText = generateSentenceForMode(mode);
       }
 
       const rawText = buildRawText(leadText, listItems, followUpText);
@@ -406,21 +526,15 @@ export function generateText(options: GeneratorOptions): ParagraphItem[] {
         if (p === 0 && s === 0 && startWithLorem) {
           if (mode === 'latin') {
             sentences.push('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.');
-          } else {
+          } else if (mode === 'dutch') {
             sentences.push('Knoestering ipsum dolor sit amet, klossemachtige zwalkers en vlierende dreumelarij ter opvulling van de plonstermacht.');
+          } else {
+            sentences.push('Qapla\' ipsum dolor sit amet, batlh potlh law\' yIn potlh puS, Heghlu\'meH QaQ jajvam.');
           }
           continue;
         }
 
-        if (mode === 'latin') {
-          if (Math.random() < 0.25) {
-            sentences.push(getRandomItem(LATIN_OPENERS));
-          } else {
-            sentences.push(generateLatinSentence());
-          }
-        } else {
-          sentences.push(generatePseudoDutchSentence());
-        }
+        sentences.push(generateSentenceForMode(mode));
       }
 
       const leadText = sentences.join(' ');

@@ -30,6 +30,7 @@ const TRANSLATIONS = {
     subtitle: 'Typografische Tekstgenerator (met niet-bestaande woorden)',
     dutchMode: 'Pseudo-Nederlands',
     latinMode: 'Lorem Ipsum (Latijn)',
+    klingonMode: 'tlhIngan Hol (Klingon)',
     paragraphs: "Alinea's",
     length: 'Lengte',
     short: 'Kort',
@@ -38,6 +39,7 @@ const TRANSLATIONS = {
     format: 'Formaat',
     startWithLoremDutch: 'Start met "Knoestering ipsum..."',
     startWithLoremLatin: 'Start met "Lorem ipsum..."',
+    startWithLoremKlingon: 'Start met "Qapla\' ipsum..."',
     includeLists: 'Opsommingen toevoegen',
     copyAll: 'Kopieer alles',
     copied: 'Gekopieerd!',
@@ -67,6 +69,7 @@ const TRANSLATIONS = {
     subtitle: 'Minimal Text Generator',
     dutchMode: 'Pseudo-Dutch',
     latinMode: 'Lorem Ipsum (Latin)',
+    klingonMode: 'tlhIngan Hol (Klingon)',
     paragraphs: 'Paragraphs',
     length: 'Length',
     short: 'Short',
@@ -75,6 +78,7 @@ const TRANSLATIONS = {
     format: 'Format',
     startWithLoremDutch: 'Start with "Knoestering ipsum..."',
     startWithLoremLatin: 'Start with "Lorem ipsum..."',
+    startWithLoremKlingon: 'Start with "Qapla\' ipsum..."',
     includeLists: 'Include bullet lists',
     copyAll: 'Copy all',
     copied: 'Copied!',
@@ -279,6 +283,17 @@ export default function App() {
             >
               {t.latinMode}
             </button>
+            <button
+              type="button"
+              onClick={() => setMode('klingon')}
+              className={`px-3 py-1 text-xs font-medium rounded-md transition-all whitespace-nowrap ${
+                mode === 'klingon'
+                  ? 'bg-white text-stone-900 shadow-xs'
+                  : 'text-stone-600 hover:text-stone-900'
+              }`}
+            >
+              {t.klingonMode}
+            </button>
           </nav>
 
           {/* Zone 3: Primary Actions & UI Language */}
@@ -448,7 +463,11 @@ export default function App() {
                 className="w-3.5 h-3.5 rounded border-stone-300 text-stone-900 focus:ring-0 accent-stone-900"
               />
               <span className="text-xs">
-                {mode === 'latin' ? t.startWithLoremLatin : t.startWithLoremDutch}
+                {mode === 'latin'
+                  ? t.startWithLoremLatin
+                  : mode === 'dutch'
+                  ? t.startWithLoremDutch
+                  : t.startWithLoremKlingon}
               </span>
             </label>
 
@@ -566,7 +585,7 @@ export default function App() {
         <div className="flex items-center justify-between pb-6 mb-8 border-b border-stone-200 text-xs text-stone-500">
           <div className="flex items-center gap-2.5 flex-wrap">
             <span className="font-medium text-stone-700">
-              {mode === 'dutch' ? t.dutchMode : t.latinMode}
+              {mode === 'dutch' ? t.dutchMode : mode === 'latin' ? t.latinMode : t.klingonMode}
             </span>
             <span aria-hidden="true">·</span>
             <span className="tabular-nums">{stats.paragraphs} {t.paragraphs.toLowerCase()}</span>
@@ -723,7 +742,13 @@ export default function App() {
           <div className="flex items-center gap-4 text-stone-500">
             <span>{t.pressR}</span>
             <span>·</span>
-            <span>{mode === 'dutch' ? 'Pseudo-Nederlands' : 'Ciceronian Latin'}</span>
+            <span>
+              {mode === 'dutch'
+                ? 'Pseudo-Nederlands'
+                : mode === 'latin'
+                ? 'Ciceronian Latin'
+                : 'tlhIngan Hol (Klingon)'}
+            </span>
           </div>
         </div>
       </footer>

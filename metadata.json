@@ -1,6 +1,6 @@
 {
-  "name": "Texta — Minimal Lorem & Pseudo-Dutch Generator",
-  "description": "A clean, minimal typography tool generating realistic Lorem Ipsum and authentic Pseudo-Dutch placeholder texts with precise paragraph control.",
+  "name": "Texta — Minimal Lorem, Pseudo-Dutch & Klingon Generator",
+  "description": "A clean, minimal typography tool generating realistic Lorem Ipsum, authentic Pseudo-Dutch, and Klingon (tlhIngan Hol) placeholder texts with precise paragraph control.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }
